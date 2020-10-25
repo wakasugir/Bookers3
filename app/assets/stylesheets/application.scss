@@ -94,6 +94,11 @@ ul, ol {
 #error_explanation{
     color: red;
 }
+
+.comments {
+  word-wrap:break-word;
+  color:red;
+}
  
 @import "bootstrap-sprockets";
 @import "bootstrap"

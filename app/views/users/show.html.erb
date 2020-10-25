@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-xs-3">
           <h2>User info</h2>
-          <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, fallback: "no_image" %>
+          <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, fallback: "no_image", size: "100x100" %>
           <table class="table">
             <tbody>
               <tr></tr>
@@ -57,7 +57,7 @@
                     <tr>
                       <td>
                         <%= link_to user_path(book.user) do %>
-                          <%= attachment_image_tag book.user, :profile_image, :fill, 50, 50, fallback: "no_image" %>
+                          <%= attachment_image_tag book.user, :profile_image, :fill, 50, 50, fallback: "no_image", size: "50x50" %>
                         <% end %>
                       </td>
                       <td>
@@ -65,6 +65,9 @@
                       </td>
                       <td>
                         <%= book.body %>
+                      </td>
+                      <td id="count_<%= book.id %>">
+                        <%= render partial: 'book_comments/count', locals: {book: book} %> 
                       </td>
                     </tr>
                   <% end %>
