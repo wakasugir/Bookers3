@@ -4,10 +4,10 @@ class BookCommentsController < ApplicationController
     comment = BookComment.new(book_comment_params)
     comment.user_id = current_user.id
     comment.book_id = book.id
-    if !comment.save
-      render book_path(book)
-    else
+    if comment.save
       redirect_to book_path(book)
+    else
+      render book_path(book)
     end
   end
   

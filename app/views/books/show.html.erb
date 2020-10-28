@@ -22,20 +22,7 @@
       <div class="row">
         <%= link_to "", edit_user_path(current_user), class:"col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_26158" %>
       </div>
-      <h2>New book</h2>
-      <%= form_with model:@new_book, local:true do |f| %>
-        <div class="field row">
-          <%= f.label :title %>
-          <%= f.text_field :title, class:"col-xs-12" %>
-        </div>
-        <div class="field row">
-          <%= f.label :opinion %>
-          <%= f.text_area :body, class:"col-xs-12" %>
-        </div>
-        <div class="actions row">
-          <%= f.submit "Create Book", class:"btn btn-primary col-xs-12" %>
-        </div>
-      <% end %>
+      <%= render 'books/book', new_book: @new_book %>
     </div>
       
     <div class="col-xs-9">
@@ -56,7 +43,7 @@
               <%= @book.body %>
             </td>
             <td id="favorites_<%= @book.id %>">
-              <%= render partial: 'favorites/favorite', locals: {book: @book} %> 
+              <%= render partial: 'favorites/favorite', locals: {book: @book} %>
             </td>
             <td id="count_<%= @book.id %>">
               <%= render partial: 'book_comments/count', locals: {book: @book} %> 
@@ -74,17 +61,18 @@
       </table>
       <div>
         <h2>Comment</h2>
-        <% if @book.book_comments.exists? %>
           <table class="table">
             <tbody id="comments_<%= @book.id %>"> 
-              <%= render partial: 'book_comments/comments', locals: {book: @book} %>
+              <% if @book.book_comments.exists? %>
+                <%= render partial: 'book_comments/comments', locals: {book: @book} %>
+              <% end %>
               <tr>
                 <td>
                   <%= attachment_image_tag current_user, :profile_image, :fill, 30, 30, fallback: "no_image", size: "30x30" %><br>
                   <%= current_user.name %> 
                 </td>
                 <td>
-                  <%= form_with(model:[@book, @book_comment], remote:true) do |f| %>
+                  <%= form_with(model:[@book, @book_comment], local:true) do |f| %>
                     <%= f.text_area :comment, style:"width:90%" %>
                     <%= f.submit "送信" %>
                   <% end %>
@@ -92,7 +80,6 @@
               </tr>
             </tbody>
           </table>
-        <% end %>
       </div>
     </div>
       
